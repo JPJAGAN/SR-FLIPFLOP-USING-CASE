@@ -1,15 +1,15 @@
 # SR-FLIPFLOP-USING-CASE
 # NAME.- JAGAN JP
 # REG NO.- 212224230099
-**AIM:**
+# AIM:
 
 To implement  SR flipflop using verilog and validating their functionality using their functional tables
 
-**SOFTWARE REQUIRED:**
+# SOFTWARE REQUIRED:
 
 Quartus prime
 
-**THEORY**
+# THEORY:
 
 SR Flip-Flop SR flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, SR latch operates with enable signal. The circuit diagram of SR flip-flop is shown in the following figure.
 
@@ -33,7 +33,8 @@ By using three variable K-Map, we can get the simplified expression for next sta
  
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is Q(t+1)=S+R′Q(t)Q(t+1)=S+R′Q(t)
 
-**Procedure**
+# Procedure:
+
 1.Type the program in Quartus software.
 
 2.Compile and run the program.
@@ -44,51 +45,37 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 
 5.For different input combinations generate the timing diagram.
 
-**PROGRAM**
-
-/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber:
-*/
-
-module sr_ff(s,r,clk,q,qbar);
-
-input s,r,clk;
-
-output reg q;
-
-output reg qbar;
-
-initial 
-
-begin
-
-q=0;
-
-qbar=1;
-
-end
-
-always @(posedge clk)
-
-begin
-
-   q=s|(~r&q);
-   
-   qbar=r|(~s&~q);
-
-end
-
+# PROGRAM:
+```
+module EXP_6(q, q_bar, s,r, clk, reset);//SR Flip Flop Behavioral Level using ‘case’ 
+  input s,r,clk, reset;
+  output reg q;
+  output q_bar;
+ 
+  always@(posedge clk) begin // for synchronous reset
+    if(!reset)       
+			q <= 0;
+    else 
+  begin
+      case({s,r})       
+	     2'b00: q <= q;    // No change
+        2'b01:q<=1'b0;   // Write logic for reset
+        2'b10:q<=1'b1;   // Write logic for set
+        2'b11:q<=1'bx;   // Write logic for Invalid state
+      endcase
+    end
+  end
+  assign q_bar = ~q;
 endmodule
+```
 
+# RTL LOGIC FOR FLIPFLOPS:
 
-**RTL LOGIC FOR FLIPFLOPS**
+![image](https://github.com/user-attachments/assets/271a5a57-b5c5-44cc-8df9-041b8488ec19)
 
-![image](https://github.com/user-attachments/assets/b27d0784-3c18-4bd4-9a27-435ea70dfbac)
+# TIMING DIGRAMS FOR FLIP FLOPS:
 
-**TIMING DIGRAMS FOR FLIP FLOPS**
+![image](https://github.com/user-attachments/assets/c9b02340-96b6-4174-b0a8-cd90b5956f83)
 
-![image](https://github.com/user-attachments/assets/db3c0a79-5976-41e5-9bf3-935e14893119)
-
-
-**RESULTS**
-
-Thus, the SR Flip-Flop is designed, and its functionality is validated using the truth table and timing diagrams.
+# RESULTS:
+The observation of the simulation results and confirm the successful execution of the program.
